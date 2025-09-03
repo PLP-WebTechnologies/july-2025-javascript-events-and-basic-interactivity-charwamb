@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Interactive Web Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Interactive Page</h1>
+    </header>
+
+    <!-- Interactive Session 1: Counter -->
+     <section id="counter-section">
+        <h2>Click counter</h2>
+        <p>How many times can you click the button?</p>
+        <button id="count-btn">Click Me!</button>
+        <p>Count: <span id="count-display">0</span></p>
+     </section>
+
+    <!-- Interactive Section 2: Theme Switcher -->
+     <section id="theme-section">
+        <h2>Theme Switcher</h2>
+        <button id="theme-btn">Toggle Dark Mode</button>
+     </section>
+
+    <!-- Form Section -->
+     <section id="form-section">
+        <h2>Sign Up Form</h2>
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username"
+    placeholder="Enter username">
+
+            <label for="email">Email:</label>
+            <input type="text" id="email"
+    placeholder="Enter email">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password"
+    placeholder="Enter password">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="form-messages"></div>
+     </section>
+     <script src="script.js"></script>
+</body>
+</html>
