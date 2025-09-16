@@ -1,75 +1,75 @@
-// INTERACTIVE FEATURE 1: COUNTER //
-let count = 0;
-const countBtn=
-document.getElementById("count-btn");
-const countDisplay=
-document.getElementById("count-display")
-;
+// GLOBAL VARIABLE: Discount
+let globalDiscount = 0.05; // 5%
 
-countBtn.addEventListener("click", () =>
-{
-    count++;
-    countDisplay.textContent = count;
+// Loading Spinner
+window.addEventListener('load', () => {
+    document.getElementById('loading-spinner').style.display = 'none';
 });
 
-// INTERACTIVE FEATURE 2: THEME SWITCHER //
-const themeBtn =
-document.getElementById("theme-btn");
-themeBtn.addEventListener("click", () =>
-{
+// HERO SLIDESHOW
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+function showSlide(index){
+    slides.forEach((slide,i)=> slide.classList.remove('active'));
+    slides[index].classList.add('active');
+}
+setInterval(()=>{
+    currentSlide = (currentSlide+1)%slides.length;
+    showSlide(currentSlide);
+},4000);
 
-document.body.classList.toggle("dark-mode");
-  themeBtn.textContent =
-document.body.classList.contains("dark-mode")
-    ? "Switch to Light Mode"
-    : "Toggle Dark Mode";
-});
+// SCROLL TO LISTINGS
+function scrollToListings(){
+    document.getElementById('listings').scrollIntoView({behavior:'smooth'});
+}
 
-// FORM VALIDATION (CUSTOM) //
-const form =
-document.getElementById("signup-form");
-const formMessages =
-document.getElementById("form-messages");
+// CARD FLIP
+function flipCard(cardInner){
+    cardInner.style.transform = cardInner.style.transform==='rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+}
 
-form.addEventListener("submit", function (e) {
-    e.preventDefault(); //Prevent form from refreshing the page
-    formMessages.innerHTML = ""; // Clear old messages
-    let errors = [];
+// FILTER LISTINGS
+function filterListings(){
+    const loc = document.getElementById('search-location').value.toLowerCase();
+    const price = parseInt(document.getElementById('search-price').value) || Infinity;
+    const cards = document.querySelectorAll('.house-card');
+    cards.forEach(card=>{
+        const location = card.dataset.location.toLowerCase();
+        const cardPrice = parseInt(card.dataset.price);
+        if(location.includes(loc) && cardPrice<=price){
+            card.style.display='block';
+        } else { card.style.display='none'; }
+    });
+}
 
-    // Username validation
-    const username =
-    document.getElementById("username")
-    .value.trim();
-    if (username.length < 3) {
-        errors.push("Username must be atleast 3 characters long.");
-    }
+// MODAL FUNCTIONS
+function showModal(title, desc, img){
+    document.getElementById('modal-title').innerText=title;
+    document.getElementById('modal-desc').innerText=desc;
+    document.getElementById('modal-img').src=img;
+    document.getElementById('house-modal').style.display='flex';
+}
+function closeModal(){
+    document.getElementById('house-modal').style.display='none';
+}
 
-    // Email validation (basic regex)
-    const email = 
-    document.getElementById("email").
-    trim();
-    const emailRegex = /.+@.+\..+/;
-    if (!emailRegex.text(email)) {
-        errors.push("Please enter a valid email address.");
-    }
+// CONTACT FORM
+function submitForm(){
+    const msg = document.getElementById('form-message');
+    msg.textContent='Thank you! Your message has been sent.';
+    msg.style.color='green';
+    return false;
+}
 
-    // Password validatio
-    const password =
-    document.getElementById("password")
-    .value.trim();
-    if (password.length < 6) {
-        errors.push("Password must be atleast 6 characters long.");
-    }
+// FUNCTION EXAMPLE: Apply Discount
+function applyDiscount(price){
+    let localDiscount = 0.1;
+    return price - (price*(localDiscount+globalDiscount));
+}
 
-    // Show results
-    if (errors.length > 0) {
-        formMessages.style.color = "red";
-        formMessages.innerHTML = errors.join("<br>");
-    } else {
-        formMessages.style.color = "green";
-        formMessages.innerHTML = "Form submitted successfully!";
-        form.reset();
-    }
-});
-
-
+// FUNCTION EXAMPLE: Animate Element
+function animateElement(selector, animationClass, duration){
+    const el = document.querySelector(selector);
+    el.classList.add(animationClass);
+    setTimeout(()=>el.classList.remove(animationClass),duration);
+}

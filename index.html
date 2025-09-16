@@ -2,48 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Interactive Web Page</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Homes for Sale</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Interactive Page</h1>
-    </header>
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner"></div>
 
-    <!-- Interactive Session 1: Counter -->
-     <section id="counter-section">
-        <h2>Click counter</h2>
-        <p>How many times can you click the button?</p>
-        <button id="count-btn">Click Me!</button>
-        <p>Count: <span id="count-display">0</span></p>
-     </section>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>Kenya Homes</h1>
+        <ul>
+            <li><a href="#listings">Listings</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- Interactive Section 2: Theme Switcher -->
-     <section id="theme-section">
-        <h2>Theme Switcher</h2>
-        <button id="theme-btn">Toggle Dark Mode</button>
-     </section>
+    <!-- Hero Section with Slideshow -->
+    <section class="hero">
+        <div class="slider">
+            <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80" class="slide active" alt="House 1">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" class="slide" alt="House 2">
+            <img src="https://images.unsplash.com/photo-1572120360610-d971b9b76d0e?auto=format&fit=crop&w=1200&q=80" class="slide" alt="House 3">
+        </div>
+        <h2 class="hero-text">Find Your Dream Home in Kenya</h2>
+        <button class="cta-btn" onclick="scrollToListings()">Explore Listings</button>
+    </section>
 
-    <!-- Form Section -->
-     <section id="form-section">
-        <h2>Sign Up Form</h2>
-        <form id="signup-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username"
-    placeholder="Enter username">
+    <!-- Search/Filter -->
+    <section class="search-bar">
+        <input type="text" id="search-location" placeholder="Search by location..." onkeyup="filterListings()">
+        <input type="number" id="search-price" placeholder="Max price KSh..." onkeyup="filterListings()">
+    </section>
 
-            <label for="email">Email:</label>
-            <input type="text" id="email"
-    placeholder="Enter email">
+    <!-- House Listings -->
+    <section id="listings" class="listings">
+        <h2>Featured Properties</h2>
+        <div class="cards-container">
+            <!-- Card 1 -->
+            <div class="house-card" data-location="Nairobi" data-price="25000000">
+                <div class="card-inner" onclick="flipCard(this)">
+                    <div class="card-front">
+                        <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80" alt="Nairobi Villa">
+                        <h3>Nairobi Villa</h3>
+                        <p>KSh 25,000,000</p>
+                    </div>
+                    <div class="card-back">
+                        <p>3 Beds, 2 Baths, Modern Kitchen, Garden</p>
+                        <button onclick="showModal('Nairobi Villa', '3 Beds, 2 Baths, Modern Kitchen, Garden', 'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80')">View Details</button>
+                    </div>
+                </div>
+            </div>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password"
-    placeholder="Enter password">
-            <button type="submit">Submit</button>
+            <!-- Card 2 -->
+            <div class="house-card" data-location="Mombasa" data-price="45000000">
+                <div class="card-inner" onclick="flipCard(this)">
+                    <div class="card-front">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Mombasa Beach House">
+                        <h3>Mombasa Beach House</h3>
+                        <p>KSh 45,000,000</p>
+                    </div>
+                    <div class="card-back">
+                        <p>4 Beds, 3 Baths, Ocean View, Private Pool</p>
+                        <button onclick="showModal('Mombasa Beach House', '4 Beds, 3 Baths, Ocean View, Private Pool', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80')">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="house-card" data-location="Naivasha" data-price="18500000">
+                <div class="card-inner" onclick="flipCard(this)">
+                    <div class="card-front">
+                        <img src="https://images.unsplash.com/photo-1572120360610-d971b9b76d0e?auto=format&fit=crop&w=800&q=80" alt="Naivasha Cottage">
+                        <h3>Naivasha Cottage</h3>
+                        <p>KSh 18,500,000</p>
+                    </div>
+                    <div class="card-back">
+                        <p>2 Beds, 1 Bath, Lake View, Cozy Fireplace</p>
+                        <button onclick="showModal('Naivasha Cottage', '2 Beds, 1 Bath, Lake View, Cozy Fireplace', 'https://images.unsplash.com/photo-1572120360610-d971b9b76d0e?auto=format&fit=crop&w=800&q=80')">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="house-card" data-location="Kisumu" data-price="22000000">
+                <div class="card-inner" onclick="flipCard(this)">
+                    <div class="card-front">
+                        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80" alt="Kisumu Modern Home">
+                        <h3>Kisumu Modern Home</h3>
+                        <p>KSh 22,000,000</p>
+                    </div>
+                    <div class="card-back">
+                        <p>3 Beds, 2 Baths, Spacious Garden, Garage</p>
+                        <button onclick="showModal('Kisumu Modern Home', '3 Beds, 2 Baths, Spacious Garden, Garage', 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="house-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <img id="modal-img" src="" alt="">
+            <p id="modal-desc"></p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form onsubmit="return submitForm()">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Message" required></textarea>
+            <button type="submit">Send Message</button>
         </form>
-        <div id="form-messages"></div>
-     </section>
-     <script src="script.js"></script>
+        <p id="form-message"></p>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
